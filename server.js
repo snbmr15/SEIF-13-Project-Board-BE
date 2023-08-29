@@ -9,13 +9,12 @@ const cors = require('cors');
 
 require('./database/dbConnection'); 
 
-
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(require('./routers/router'));
 
-app.use("/uploads",express.static('uploads'));
+// app.use("/uploads",express.static('uploads'));
 
 const PORT = process.env.PORT || 8080;
 

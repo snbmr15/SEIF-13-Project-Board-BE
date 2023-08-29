@@ -107,7 +107,7 @@ module.exports = router.get('/getRequest', userAuth, async(req, res)=>{
                 let userObj = {
                     _id: userProfile._id,
                     name: userProfile.name,
-                    image:userProfile.image,
+                    // image:userProfile.image,
                 }
                 friendsProfile.push(userObj) 
             })

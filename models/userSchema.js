@@ -21,18 +21,18 @@ const userSchema = new mongoose.Schema({
     userCnfrmPass: {
         type: String,
     },
-    imageName: {
-        type: String,
-    },
-    imageType: {
-        type: String,
-    },
-    imageSize: {
-        type: String,
-    },
-    accountVerified: {
-        type: Boolean,
-    },
+    // imageName: {
+    //     type: String,
+    // },
+    // imageType: {
+    //     type: String,
+    // },
+    // imageSize: {
+    //     type: String,
+    // },
+    // accountVerified: {
+    //     type: Boolean,
+    // },
     friends:[{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
