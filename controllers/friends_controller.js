@@ -1,7 +1,6 @@
 
 const User = require('../models/userSchema');
 const FriendRequest = require('../models/friendRequest');
-const Chat = require('../models/chatSchema'); 
 
 module.exports = {
     sendFriendRequest: async (req, res) => {
@@ -45,12 +44,6 @@ module.exports = {
     
                 sendingUser.friends.push(receivingUser._id);
                 await sendingUser.save();
-    
-                const data = new Chat({  
-                    users: [req.userID, personId],
-                });
-        
-                await data.save();
         
                 res.status(201).send({message: "Request accepted"});
             }

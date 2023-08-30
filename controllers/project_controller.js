@@ -1,5 +1,4 @@
 const User = require('../models/userSchema'); 
-const Chat = require('../models/chatSchema'); 
 const Project = require('../models/project');
 const Phases = require('../models/phases');
 const ProjectNotification = require('../models/projectNotification');
@@ -48,39 +47,6 @@ module.exports = {
             await data.save();
     
             res.status(201).send({message: "Project created successfully"});
-        } catch (error) {
-            res.status(500).send(error.message);
-            console.log(error)
-        }
-    },
-
-    createProjectChat: async (req, res) => {
-        const selectedProjectId = req.body.selectedProjectId;
-        const findProject = await Project.findOne({ _id: selectedProjectId });
-        const findChat = await Chat.findOne({ projectRef: selectedProjectId });
-        let allMembers = [findProject.projectCreator];
-        
-        findProject.members.map((element)=>{ 
-            allMembers.push(element.memberRef);
-        });
-    
-        try {
-            if(findChat){
-                res.status(201).send({message: "Chat already exist, Please go to Chat Box."});
-            }
-            else{
-                const projectChat = new Chat({  
-                    users: allMembers,
-                    isGroupChat: true,
-                    groupName: findProject.projectTitle,
-                    projectRef: findProject._id,
-                    groupAdmin: findProject.projectCreator,
-                });
-    
-                await projectChat.save();
-    
-                res.status(201).send({message: "Chat Created. Please go to Chat Box."});
-            }
         } catch (error) {
             res.status(500).send(error.message);
             console.log(error)
@@ -142,14 +108,7 @@ module.exports = {
                     "phasePercentage": singlePhasePercentage,
                 }
             });
-    
-            const findChat = await Chat.updateOne({ projectRef: projectId },{ 
-                users: chatMembers,
-                groupName: projectTitle,
-            });
-    
-    
-            
+
             res.status(201).send({message: "Project updated successfully"});
         } catch (error) {
             res.status(500).send(error.message);

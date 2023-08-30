@@ -1,5 +1,3 @@
-
-
 const Categories = require('../models/newCategory');
 
 module.exports = {

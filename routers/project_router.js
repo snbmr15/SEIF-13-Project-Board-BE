@@ -7,8 +7,6 @@ const projectController = require('../controllers/project_controller');
 // Create a new project
 router.post('/createNewProject', userAuth, projectController.createNewProject);
 
-// Create project chat
-router.post('/createProjectChat', userAuth, projectController.createProjectChat);
 
 // Get projects
 router.get('/getProjects', userAuth, projectController.getProjects);

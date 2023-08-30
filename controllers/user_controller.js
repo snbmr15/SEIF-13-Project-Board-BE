@@ -4,7 +4,7 @@ const Joi = require('joi');
 
 const User = require('../models/userSchema');
 
-const userControllers = {
+module.exports = {
 
     register: async(req, res) => {
         // const {userName, userEmail, userPassword, userCnfrmPass} = req.body;
@@ -13,7 +13,7 @@ const userControllers = {
         const validationSchema = Joi.object(
             {
                 name: Joi.string().min(2).max(30).required(),
-                email: Joi.string().mim(3).required(),
+                email: Joi.string().min(3).required(),
                 userPassword: Joi.string().required(),
             }
         )
@@ -67,6 +67,7 @@ const userControllers = {
                     userPassword: hash
                 }
             )
+            return res.status(201).json({ message: "User created successfully" })
         } catch (err) {
             res.statusCode = 500;
             return res.json(
@@ -75,10 +76,6 @@ const userControllers = {
                 }
             )
         }
-
-        // return response with status code 201
-        res.json()
-        res.send('Registered')
     },
 
     login: async(req, res) => {
@@ -133,7 +130,7 @@ const userControllers = {
             )
         }
 
-        const validLogin = await bcrypt.compare(data.password, user.userPassword) // (current input, DB details)
+        const validLogin = await bcrypt.compare(data.userPassword, user.userPassword) // (current input, DB details)
 
         if (!validLogin) {
             res.statusCode = 401
@@ -178,5 +175,3 @@ const userControllers = {
                 
     }
 }
-
-module.exports = userControllers;

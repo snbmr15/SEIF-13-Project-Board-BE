@@ -1,4 +1,3 @@
-// controllers/notesController.js
 
 const MyNotes = require('../models/myNotes');
 

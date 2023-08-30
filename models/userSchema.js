@@ -12,27 +12,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     }, 
-    // image: {
-    //     type: String,
-    // },
     userPassword: { 
         type: String,
     },
-    // userCnfrmPass: {
-    //     type: String,
-    // },
-    // imageName: {
-    //     type: String,
-    // },
-    // imageType: {
-    //     type: String,
-    // },
-    // imageSize: {
-    //     type: String,
-    // },
-    // accountVerified: {
-    //     type: Boolean,
-    // },
     friends:[{
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
@@ -41,7 +23,7 @@ const userSchema = new mongoose.Schema({
 },{timestamps:true})
 
 
-
+/*
 // hashing password
 
 userSchema.pre('save', async function(next){
@@ -53,7 +35,7 @@ userSchema.pre('save', async function(next){
     next();
 
 });
-
+*/
 
 
 //generating token
