@@ -1,21 +1,21 @@
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
+// const mongoose = require('mongoose');
+// mongoose.set('strictQuery', true);
 
-const DB = process.env.DATABASE;
+// const DB = process.env.DATABASE;
 
 
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    // useCreateIndex: true,
-    useUnifiedTopology: true,
-    // useFindAndModify: false
-}).then( ()=>{
+// mongoose.connect(DB, {
+//     useNewUrlParser: true,
+//     // useCreateIndex: true,
+//     useUnifiedTopology: true,
+//     // useFindAndModify: false
+// }).then( ()=>{
 
-    console.log('connection successful');
+//     console.log('connection successful');
 
-}).catch( (err)=>{
+// }).catch( (err)=>{
 
-    console.log('no connection');
+//     console.log('no connection');
 
-});
+// });
 

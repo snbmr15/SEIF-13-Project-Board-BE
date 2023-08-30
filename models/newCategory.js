@@ -7,7 +7,7 @@ const newCategory = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    allCatogries: [
+    allCategories: [
         {
             category: {
                 type: String,

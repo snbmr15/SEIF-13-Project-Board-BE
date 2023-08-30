@@ -19,7 +19,7 @@ module.exports = router.get('/getFriends', userAuth, async(req, res)=>{
             let userObj = {
                 _id: userProfile._id,
                 name: userProfile.name,
-                image:userProfile.image,
+                // image:userProfile.image,
             }
             friendsProfile.push(userObj) 
         })

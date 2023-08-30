@@ -1,15 +1,16 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+require('../database/dbConnection');
 
 // const googleSignIn = require('../controllers/googleSignin');
-
-require('../database/dbConnection');
 
 
 router.get('/', (req, res) =>{
     res.send('home page router')
 });
+
+
 
 router.use(require('../controllers/googleSignin'))
 // router.use(googleSignIn);

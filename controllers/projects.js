@@ -14,7 +14,8 @@ const ProjectNotification = require('../models/projectNotification');
 
 
 // create new project
-module.exports = router.post('/createNewProject', userAuth, upload.array("projectFiles"), async(req, res)=>{
+//  upload.array("projectFiles"),
+module.exports = router.post('/createNewProject', userAuth, async(req, res)=>{
     const {projectTitle, projectDiscription, startDate, dueDate, projectType} = req.body;
     const projectMembers = JSON.parse(req.body.projectMembers);
     const projectDesig = JSON.parse(req.body.projectDesig);
@@ -126,7 +127,8 @@ module.exports = router.get('/getProjects', userAuth, async(req, res)=>{
 
 
 // update project
-module.exports = router.post('/updatingProject', userAuth, upload.array("projectFiles"), async(req, res)=>{
+//  upload.array("projectFiles"),
+module.exports = router.post('/updatingProject', userAuth, async(req, res)=>{
     const {projectTitle, projectDiscription, startDate, dueDate, projectType} = req.body;
     const projectId = JSON.parse(req.body.projectId)
     const projectMembers = JSON.parse(req.body.projectMembers)
@@ -189,7 +191,7 @@ module.exports = router.post('/updatingProject', userAuth, upload.array("project
                 "startDate": new Date(startDate),
                 "dueDate": new Date(dueDate),
                 "projectType": projectType,
-                "projectFiles": allfiles,
+                // "projectFiles": allfiles,
                 "members": allMembers,
                 "projectPhases": allPhases,
                 "phasePercentage": singlePhasePercentage,

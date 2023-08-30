@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const multer = require("multer");
+// const multer = require("multer");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-const { google } = require("googleapis");
-const nodemailer = require("nodemailer");
-const { OAuth2Client } = require('google-auth-library');
+const Joi = require('joi');
+// const { google } = require("googleapis");
+// const nodemailer = require("nodemailer");
+// const { OAuth2Client } = require('google-auth-library');
 
 // const upload = multer({ dest: 'uploads/' });
 
@@ -142,15 +143,15 @@ const User = require('../models/userSchema');
 
 
 
-
-
-module.exports = router.post('/createNewUser', upload.single("userImage"), async(req, res)=>{
+/*
+// upload.single("userImage"),
+router.post('/createNewUser', async(req, res)=>{
     const {userName, userEmail, userPassword, userCnfrmPass} = req.body;
-    const userImage = req.file;
+    // const userImage = req.file;
     console.log("150")
 
     if(!userName || !userEmail || !userPassword || !userCnfrmPass){
-        return res.status(422).json({ error: "Please filled the form properly"})
+        return res.status(422).json({ error: "Please fill up the form properly"})
     }
     const userExist = await User.findOne({ email: userEmail });
     try {
@@ -205,7 +206,7 @@ module.exports = router.post('/createNewUser', upload.single("userImage"), async
 
 
 
-module.exports = router.post('/signInUser', async(req, res)=>{
+router.post('/signInUser', async(req, res)=>{
     const {userEmail, userPassword} = req.body;
 
     // const userExist = await User.findOne({ email: userEmail, accountVerified: true});
@@ -250,7 +251,7 @@ module.exports = router.post('/signInUser', async(req, res)=>{
         console.log(error);
     }
 });  
-
+*/
 
 
 // module.exports = router.get('/verify/:token', async(req, res)=>{
@@ -283,10 +284,14 @@ module.exports = router.post('/signInUser', async(req, res)=>{
 // }); 
 
 
-
+/*
 // signout
-module.exports = router.get('/userSignOut', async(req, res)=>{
+router.get('/userSignOut', async(req, res)=>{
     res.clearCookie("jwtoken");
     res.status(201).send({message: "logout successfull"});
     
 });   
+
+module.exports = router;
+*/
+

@@ -12,15 +12,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     }, 
-    image: {
-        type: String,
-    },
+    // image: {
+    //     type: String,
+    // },
     userPassword: { 
         type: String,
     },
-    userCnfrmPass: {
-        type: String,
-    },
+    // userCnfrmPass: {
+    //     type: String,
+    // },
     // imageName: {
     //     type: String,
     // },
