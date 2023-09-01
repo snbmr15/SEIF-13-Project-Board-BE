@@ -13,6 +13,6 @@ router.get('/showTasks', userAuth, taskController.showTasks);
 router.post('/updatingTask', userAuth, taskController.updateTask);
 
 // Delete selected task
-router.post('/deletingSelectedTask', userAuth, taskController.deleteSelectedTask);
+router.delete('/deletingSelectedTask/:taskName', userAuth, taskController.deleteSelectedTask);
 
 module.exports = router;

@@ -7,11 +7,14 @@ module.exports = {
         try {
     
             if(userExist){
+                // Convert the date string to a Date object
+                const taskDate = new Date(date);
     
                 userExist.allTasks.push({
                     task: task,
                     category: category,
-                    date: new Date(date)
+                    date: taskDate,
+                    taskStatus: "Pending"
                 })
     
                 await userExist.save();
@@ -19,12 +22,17 @@ module.exports = {
                 res.status(201).send({message: "Task added successfully"});
             }
             else{
+
+                // Convert the date string to a Date object
+                const taskDate = new Date(date);
+
                 const data = new AddTask({  
                     userRef: req.userID,
                     allTasks: [{
                         task: task,
                         category: category,
-                        date: new Date(date)
+                        date: taskDate,
+                        taskStatus: "Pending"
                     }]
                 });
      
@@ -58,16 +66,29 @@ module.exports = {
     },
 
     updateTask: async (req, res) => {
-        const {task, date, category, id} = req.body;
+        const {task, date, category, taskStatus, id} = req.body;
+        console.log("70, ", req.body)
+        console.log("Received Task:", task);
+        console.log("Received Date:", date);
+        console.log("Received Category:", category);
+        console.log("Received Status:", taskStatus);
+        console.log("Received ID:", id);
 
         try {
+                // Convert the date string to a Date object
+                const taskDate = new Date(date);
+
+
+                console.log("82 -", taskDate)
                 await AddTask.updateOne(
                 { userRef: req.userID, "allTasks._id": id },
                 {$set: {
                     "allTasks.$.task": task,
                     "allTasks.$.category": category,
-                    "allTasks.$.date": new Date(date),
+                    "allTasks.$.date": taskDate,
+                    "allTasks.$.taskStatus": taskStatus
                 }});
+                console.log("90 -")
     
                 res.status(201).send({message: "Task updated successfully"});
         } catch (error) {
@@ -77,21 +98,26 @@ module.exports = {
     },
 
     deleteSelectedTask: async (req, res) => {
-        const taskId = req.body.taskId;
-        const findTasks = await AddTask.findOne({ userRef : req.userID  });
-    
+        const taskId = req.params.taskName; // Assuming the task name is passed as a parameter
+        
         try {
-            if(findTasks){
-                console.log(findTasks)
-                let pullSelectedTask = findTasks.allTasks.filter(element1 => element1._id.toString() === taskId);
-                console.log(pullSelectedTask)
-                findTasks.allTasks = pullSelectedTask;
+            const findTasks = await AddTask.findOne({ userRef: req.userID });
+    
+            if (findTasks) {
+                // Filter out the task to be deleted and save the updated list
+                findTasks.allTasks = findTasks.allTasks.filter(task => task._id.toString() !== taskId);
                 await findTasks.save();
-                res.status(201).send({message: "Task Deleted"});
+    
+                res.status(201).send({ message: "Task Deleted" });
+            } else {
+                res.status(404).send({ message: "Tasks not found" });
             }
         } catch (error) {
-            res.status(500).send(error.message);
-            console.log(error)
+            res.status(500).send({ message: "An error occurred while deleting the task" });
+            console.log(error);
         }
     }
+    
+
+
 };

@@ -10,7 +10,7 @@ module.exports = {
             
             if(categoriesExist){
     
-                categoriesExist.allCatogries.push({
+                categoriesExist.allCategories.push({
                     category: name,
                 })
     
@@ -26,6 +26,8 @@ module.exports = {
                         category: name
                     }]
                 });
+
+                console.log(data);
      
                 await data.save();
     
@@ -42,7 +44,7 @@ module.exports = {
         const getCategories = await Categories.findOne({ userRef: req.userID });
         try {
             if(getCategories){
-                const allCatogries = getCategories.allCatogries
+                const allCatogries = getCategories.allCategories
                 res.status(201).send(allCatogries);
             }
             else{
@@ -56,21 +58,25 @@ module.exports = {
     },
 
     deleteTaskCategory: async (req, res) => {
-        const catId = req.body.catId;
-
+        const catName = req.params.catName;
+        const userID = req.userID;
+    
         try {
             const updateCategories = await Categories.updateOne(
                 { userRef: req.userID },
-                { $pull: { allCategories: { _id: catId } } }
+                { $pull: { allCategories: { category: catName } } }
             );
-
+            console.log(userID)
+    
+            console.log('##', updateCategories);
+    
             if (updateCategories.nModified === 0) {
                 return res.status(404).send({ message: "Category not found or not modified" });
             }
-
-            const updatedCategories = await Categories.findOne({ userRef: req.userID });
+    
+            const updatedCategories = await Categories.findOneAndDelete({ userRef: userID });
             const allCategories = updatedCategories.allCategories;
-
+    
             res.status(200).send(allCategories);
         } catch (error) {
             res.status(500).send({ message: "An error occurred while deleting the category" });

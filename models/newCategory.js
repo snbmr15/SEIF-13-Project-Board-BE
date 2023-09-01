@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
-const newCategory = new mongoose.Schema({
+const newCategorySchema = new mongoose.Schema({
     userRef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -15,9 +15,8 @@ const newCategory = new mongoose.Schema({
             },
         }
     ]
-        
-})
+});
 
-const Categories = mongoose.model('CATEGORIES', newCategory);
+const Categories = mongoose.model('Categories', newCategorySchema);
 
 module.exports = Categories;

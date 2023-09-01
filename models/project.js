@@ -9,64 +9,64 @@ const project = new mongoose.Schema({
     },
     projectTitle: {
         type: String,
-        required: true
+        // required: true
     },
-    projectDiscription: { 
+    projectDescription: { 
         type: String,
-        required: true
+        // required: true
     },
     startDate: {
         type: Date,
-        required: true
+        // required: true
     },
     dueDate: {
         type: Date,
-        required: true
+        // required: true
     },
     projectType: {
         type: String,
-        required: true
+        // required: true
     },
 
-    members: [
-        {
-            memberRef: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
-            },
-            designation: {
-                type: String,
-                required: true
-            },
-        }
-    ],
-    projectPhases : [
-        {
-            PhaseTitle: {
-                type: String,
-                required: true
-            },
-            PhaseNum: {
-                type: String,
-                required: true
-            },
-            PhaseStatus: {
-                type: String,
-                default: "Pending",
-                required: true
-            },
-        }
-    ],
-    phasePercentage: {
-        type: String,
-        required: true
-    },
-    progressBar: {
-        type: String,
-        default: "0",
-        required: true
-    },
+    // members: [
+    //     {
+    //         memberRef: {
+    //             type: mongoose.Schema.Types.ObjectId,
+    //             ref: 'User',
+    //             required: true
+    //         },
+    //         designation: {
+    //             type: String,
+    //             required: true
+    //         },
+    //     }
+    // ],
+    // projectPhases : [
+    //     {
+    //         PhaseTitle: {
+    //             type: String,
+    //             required: true
+    //         },
+    //         PhaseNum: {
+    //             type: String,
+    //             required: true
+    //         },
+    //         PhaseStatus: {
+    //             type: String,
+    //             default: "Pending",
+    //             required: true
+    //         },
+    //     }
+    // ],
+    // phasePercentage: {
+    //     type: String,
+    //     required: true
+    // },
+    // progressBar: {
+    //     type: String,
+    //     default: "0",
+    //     required: true
+    // },
           
 }, {timestamps: true})
 

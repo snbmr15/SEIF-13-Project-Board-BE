@@ -14,6 +14,6 @@ router.get('/getNotes', userAuth, notesController.getNotes);
 router.post('/updateNote', userAuth, notesController.updateNote);
 
 // Delete note
-router.post('/deleteNote', userAuth, notesController.deleteNote);
+router.delete('/deleteNote', userAuth, notesController.deleteNote);
 
 module.exports = router;

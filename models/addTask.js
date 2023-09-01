@@ -11,15 +11,15 @@ const addTask = new mongoose.Schema({
         {
             task: { 
                 type : String,
-                required: true
+                // required: true
             },
             category: {
                 type : String,
-                required: true
+                // required: true
             },
             date: {
                 type : Date,
-                required: true
+                // required: true
             },
             taskStatus: {
                 type : String,

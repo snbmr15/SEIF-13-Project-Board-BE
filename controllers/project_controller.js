@@ -6,42 +6,19 @@ const ProjectNotification = require('../models/projectNotification');
 
 module.exports = {
     createNewProject: async (req, res) => {
-        const {projectTitle, projectDiscription, startDate, dueDate, projectType} = req.body;
-        const projectMembers = JSON.parse(req.body.projectMembers);
-        const projectDesig = JSON.parse(req.body.projectDesig);
-        const projectPhases = JSON.parse(req.body.projectPhases);
-        let allMembers = [];
-        let allPhases = [];
-        let singlePhasePercentage = Math.round(100 / projectPhases.length);
-    
-        projectDesig.map((element)=>{
-            let memberObj = {
-                memberRef: element.id,
-                designation: element.desg,
-               
-            }
-            allMembers.push(memberObj);
-        });
-       
-        projectPhases.map((element, index)=>{
-            let phaseObj = {
-                PhaseTitle: element,
-                PhaseNum: index + 1,           
-            }
-            allPhases.push(phaseObj);
-        });
+        const {projectTitle, projectDescription, startDate, dueDate, projectType} = req.body;
     
         try {
+            const conStartDate = (new Date(startDate)).toISOString();
+            const conDueDate = (new Date(dueDate)).toISOString();
+
             const data = new Project({  
                 projectCreator: req.userID,
                 projectTitle: projectTitle,
-                projectDiscription: projectDiscription,
-                startDate: new Date(startDate),
-                dueDate: new Date(dueDate),
+                projectDescription: projectDescription,
+                startDate: conStartDate,
+                dueDate: conDueDate,
                 projectType: projectType,
-                members: allMembers,
-                projectPhases: allPhases,
-                phasePercentage: singlePhasePercentage,
             });
     
             await data.save();
@@ -66,7 +43,7 @@ module.exports = {
     },
 
     updatingProject: async (req, res) => {
-        const {projectTitle, projectDiscription, startDate, dueDate, projectType} = req.body;
+        const {projectTitle, projectDescription, startDate, dueDate, projectType} = req.body;
         const projectId = JSON.parse(req.body.projectId)
         const projectMembers = JSON.parse(req.body.projectMembers)
         const projectDesig = JSON.parse(req.body.projectDesig)
@@ -99,7 +76,7 @@ module.exports = {
             const findProject = await Project.updateOne({ _id: projectId },{
                 $set: {
                     "projectTitle": projectTitle,
-                    "projectDiscription": projectDiscription,
+                    "projectDescription": projectDescription,
                     "startDate": new Date(startDate),
                     "dueDate": new Date(dueDate),
                     "projectType": projectType,

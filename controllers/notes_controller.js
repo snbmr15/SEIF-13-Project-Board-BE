@@ -3,14 +3,14 @@ const MyNotes = require('../models/myNotes');
 
 module.exports = {
     createNote: async (req, res) => {
-        const myNoteTitle = req.body.noteTitle;
-        const myNoteText = req.body.noteText;
+        const noteTitle = req.body.noteTitle;
+        const noteText = req.body.noteText;
     
         try {
             const data = new MyNotes({  
                 userRef: req.userID,
-                noteTitle: myNoteTitle,
-                noteText: myNoteText,
+                noteTitle: noteTitle,
+                noteText: noteText,
                 noteDate: Date.now(),
             });
     
@@ -40,7 +40,7 @@ module.exports = {
         const myNoteId = req.body.noteId;
 
         try {
-            const findNote = await MyNotes.updateOne(
+            const findNote = await MyNotes.findOneAndUpdate(
                 { _id: myNoteId, userRef: req.userID }, // Ensure that the note belongs to the user
                 {
                     $set: {
@@ -51,7 +51,7 @@ module.exports = {
                 }
             );
 
-            if (findNote.nModified === 1) {
+            if (findNote.isModified === 1) {
                 res.status(201).send({ message: "Note updated successfully" });
             } else {
                 res.status(404).send({ message: "Note not found or not updated" });

@@ -11,6 +11,6 @@ router.post('/createTaskCategory', userAuth, taskCategoryController.createTaskCa
 router.get('/getAllTaskCategories', userAuth, taskCategoryController.getAllTaskCategories);
 
 // delete task category
-router.get('/deleteTaskCategory', userAuth, taskCategoryController.deleteTaskCategory);
+router.delete('/deleteTaskCategory/:catName', userAuth, taskCategoryController.deleteTaskCategory);
 
 module.exports = router;

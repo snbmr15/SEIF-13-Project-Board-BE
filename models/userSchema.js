@@ -6,11 +6,12 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     name: {
         type : String,
-        required: true,
+        // required: true,
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
+        unique: true,
     }, 
     userPassword: { 
         type: String,
@@ -23,25 +24,10 @@ const userSchema = new mongoose.Schema({
 },{timestamps:true})
 
 
-/*
-// hashing password
-
-userSchema.pre('save', async function(next){
-    
-    if(this.isModified('userPassword')){
-        this.userPassword =  await bcrypt.hash(this.userPassword, 12);
-        this.userCnfrmPass =  await bcrypt.hash(this.userCnfrmPass, 12);
-    }
-    next();
-
-});
-*/
-
-
 //generating token
 userSchema.methods.generateAuthToken = async function(){
     try{
-        let token = jwt.sign({_id: this._id}, process.env.ACCESS_TOKEN_KEY, {expiresIn: "7d"});
+        let token = jwt.sign({_id: this._id}, process.env.APP_KEY, {expiresIn: "7d"});
         return token;
 
     }catch(err){
